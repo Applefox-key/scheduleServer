@@ -11,7 +11,7 @@ import notesRouter from "./routes/notes.js";
 import router from "./routes/users.js";
 
 export const app = express();
-const port = 9002;
+const port = 9000;
 process.env.TZ = "Etc/Universal"; // UTC +00:00
 
 app.use(cors());
