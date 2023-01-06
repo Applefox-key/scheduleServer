@@ -23,6 +23,7 @@ let db = new sqlite3.Database(DBSOURCE, (err) => {
         password text, 
         img text,
         role text,
+        settings text,
         CONSTRAINT email_unique UNIQUE (email)
         )`,
 
