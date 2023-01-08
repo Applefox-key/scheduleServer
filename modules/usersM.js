@@ -1,8 +1,5 @@
-// var db = require("../database.js");
-// var md5 = require("md5");
 import { db_run, db_get, db_all } from "../utils/dbAsync.js";
 import md5 from "md5";
-import * as dotenv from "dotenv";
 import { User } from "../classes/User.js";
 
 export const getAllUsers = async () => {

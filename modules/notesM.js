@@ -1,8 +1,5 @@
 import { db_run, db_get, db_all } from "../utils/dbAsync.js";
-import md5 from "md5";
-import * as dotenv from "dotenv";
-import { User } from "../classes/User.js";
-import { reqWrapper } from "./reqM.js";
+
 //notes
 // scheduleid integer,
 // lessonid integer,
@@ -21,23 +18,8 @@ export const createNote = async (set) => {
 };
 //get notes by dates
 export const getNotes = async (set) => {
-  //   console.log(set);
-  //   const request_ = `SELECT  *,
-  //    lessons.id as lessid, subjects.name as subjname
-  //   FROM notes
-  //   LEFT JOIN lessons
-  //   ON notes.lessonid = lessons.id
-  //   LEFT JOIN subjects
-  //   ON lessons.subjectid = subjects.id
-  //   WHERE notes.scheduleid=?
-  //   `;
-  //   //AND date((date)/1000,'unixepoch') BETWEEN  date(?/1000,'unixepoch') AND  date(?/1000,'unixepoch')
-  //   //   const params = [set.scheduleid];
-  //   const params_ = [set.scheduleid];
-  //   console.log(await db_all(request_, params_));
-
   const request = `SELECT 
-                lessonid, date, note, img,
+                notes.id, lessonid, date, note, img,
                 subjects.name as subjectName,
                 color,
                 date((date)/1000,'unixepoch') as day,  
@@ -55,5 +37,21 @@ export const getNotes = async (set) => {
   const params = [set.start, set.end, set.scheduleid, set.start, set.end];
   return await db_all(request, params);
 };
-//  AND date((date)/1000,'unixepoch') >= date(?,'unixepoch')
-//                     AND date((date)/1000,'unixepoch') <= date(?,'unixepoch')
+
+//delete note by id
+export const deleteNote = async (id) => {
+  const request = `DELETE FROM notes  WHERE id=?`;
+  const params = [id];
+  return await db_run(request, params);
+};
+//update note by id
+export const updateNote = async (id, set) => {
+  const request = `UPDATE notes SET
+                  lessonid=COALESCE(?,lessonid),
+                  date=COALESCE(?,date),
+                  note=COALESCE(?,note),                
+                  img=COALESCE(?,img)
+                  WHERE id=?`;
+  const params = [set.lessonid, set.date, set.note, set.img, id];
+  return await db_run(request, params);
+};

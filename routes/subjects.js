@@ -1,4 +1,3 @@
-import * as schedule from "../modules/schedulesM.js";
 import * as subj from "../modules/subjectsM.js";
 import express from "express";
 import bodyParser from "body-parser";

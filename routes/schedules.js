@@ -1,5 +1,4 @@
 import * as schedule from "../modules/schedulesM.js";
-import * as less from "../modules/lessonsM.js";
 import express from "express";
 import bodyParser from "body-parser";
 import { reqWrapper } from "../modules/reqM.js";

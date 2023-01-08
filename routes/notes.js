@@ -18,5 +18,19 @@ router.get("/", async (req, res, next) => {
   let result = await reqWrapper(notes.getNotes, [req.query]);
   res.status(result.status).json(result.json);
 });
+//delete note by id
+router.delete("/:id", async (req, res, next) => {
+  let result = await reqWrapper(notes.deleteNote, [req.query.id]);
+  res.status(result.status).json(result.json);
+});
 
+//update one note
+router.patch("/:id", async (req, res, next) => {
+  let result = await reqWrapper(notes.updateNote, [
+    req.query.id,
+    req.body.data,
+  ]);
+
+  res.status(result.status).json(result.json);
+});
 export default router;
