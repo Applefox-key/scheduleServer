@@ -54,7 +54,14 @@ export function unless(middleware, ...paths) {
     console.log("REQUEST " + req.method + req.path);
     console.log("________ data", req.body.data);
     if (req.body.data) console.log("________ data", req.body.data);
-    if (req.params !== {}) console.log("________ params", req.params);
+    // if (req.params !== {}) console.log("________ params", req.params);
+    if (
+      req.params !== null &&
+      typeof req.params === "object" &&
+      Object.keys(req.params).length > 0
+    )
+      console.log("________ params", req.params);
+
     if (req.query) console.log("________  query", req.query);
     // console.log(req.body.data);
     const pathCheck = paths.some((path) => path === req.method + req.path);
